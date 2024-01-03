@@ -4,53 +4,42 @@
 
   <meta charset="utf-8">
   
-  <title>Lazy Loading Example</title>
+  <title>WebSocket Chat</title>
 
-  <style>
+  <script>
+    const ws = new WebSocket("wss://echo.websocket.org/");
 
-    .fullscreen {
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    ws.onopen = () => {
+        console.log("Connected to WebSocket server.")
+      }
+
+    ws.onmessage = ({ data }) => {
+      console.log(`New message: ${data}`)
     }
 
-  </style>
+    ws.onclose = () => {
+      console.log("Connection to WebSocket server has been closed.")
+    }
+
+    function sendMessage() {
+      const message = document.getElementById("message-input").value;
+
+      ws.send(message)
+
+      document.getElementById("message-input").value = "";
+      document.getElementById("status").innerText = "Message has been sent."
+    }
+  </script>
 
 </head>
 <body>
 
-  <div class="fullscreen">
-    <h1>Fullscreen div</h1>
+  <div>
+    <h1>WebSocket Chat</h1>
+    <input type="text" id="message-input" placeholder="Type your message here"/>
+    <button onclick="sendMessage()">Send</button>
+    <p id="status"></p>
   </div>
-
-  <div class="image-container">
-    <img id="lazy-image" data-src="image.png" alt="image" loading="lazy"/>
-  </div>
-
-  <script>
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const image = document.getElementById("lazy-image");
-
-      if ("IntersectionObserver" in window) {
-        let intersectionObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.target.id === "lazy-image" && entry.isIntersecting) {
-              image.src = image.dataset.src;
-              image.removeAttribute("data-src");
-              intersectionObserver.unobserve(image);
-            }
-          })
-        })
-
-        intersectionObserver.observe(image);
-      } else {
-        image.src = image.dataset.src;
-      }
-    }); 
-  </script>
 
 </body>
 </html>
