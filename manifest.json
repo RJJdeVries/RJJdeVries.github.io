@@ -1,0 +1,24 @@
+
+{
+  "name": "PWA Example",
+  "short_name": "PWA Example",
+  "description": "Basic PWA Example.",
+  "default_locale": "nl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "background_color": "#000",
+  "theme_color": "#000",
+  "display": "standalone",
+  "icons": [{
+      "src": "./icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }],
+  "developer": {
+    "name": "Ricardo de Vries"
+  },
+  "installs_allowed_from": [
+    "*"
+  ]
+}
