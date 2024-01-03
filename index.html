@@ -15,8 +15,25 @@
   	
   <link href="https://RJJdeVries.github.io/manifest.json" rel="manifest"> 
 
+  <style>
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      border: 1px solid #f8f8f8;
+    }
+
+  </style>
+
 </head>
 <body>
+
+  <div class="profile-card">
+    <h1 id="name" />
+    <p id="email" />
+    <p id="website" />
+  </div>
 
   <script>
 
@@ -37,9 +54,11 @@
             "Accept": "application/json"
           }
         });
-        const data = await response.json();
+        const { name, email, website } = await response.json();
 
-        console.log(data)
+        document.getElementById('name').innerText = name;
+        document.getElementById('email').innerText = email;
+        document.getElementById('website').innerText = website;
       } catch (error) {
         console.error(error)
       }
